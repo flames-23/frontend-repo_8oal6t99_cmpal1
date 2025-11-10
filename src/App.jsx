@@ -1,28 +1,38 @@
-import { useState } from 'react'
+import React, { useState } from 'react';
+import SplashScreen from './components/SplashScreen';
+import SplineHero from './components/SplineHero';
+import SunsetSky from './components/SunsetSky';
+import OceanWaves from './components/OceanWaves';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [splashDone, setSplashDone] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-}
+    <div className="min-h-screen bg-[#0B1026] text-white">
+      {!splashDone && (
+        <SplashScreen duration={3500} onFinish={() => setSplashDone(true)} />
+      )}
 
-export default App
+      {/* Hero section with Spline cover */}
+      <section className="relative w-full min-h-[70vh]">
+        <SplineHero />
+      </section>
+
+      {/* Transition to custom CSS sunset + ocean to stay on theme */}
+      <section className="relative w-full h-[70vh] grid grid-rows-2">
+        <div className="relative">
+          <SunsetSky />
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-[#0B1026]/80" />
+        </div>
+        <div className="relative">
+          <OceanWaves />
+        </div>
+      </section>
+
+      {/* Simple footer blurb */}
+      <footer className="py-10 text-center text-white/70">
+        Built with CSS animations and a 3D Spline cover to evoke the sea at sunset.
+      </footer>
+    </div>
+  );
+}
